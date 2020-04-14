@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+<head>
+    <style>
+chorplethdiv {height: 500px;}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
+{#    <link href='../static/css/style.css' rel="stylesheet">#}
+    <link rel="icon" href="data:;base64,iVBORwOKGO="/>
+</head>
+{% block body %}
+    <div class="jumbotron text-center">
+        <h1>EXPLORE THE WORLD OF WINES</h1>
+        <p class="lead"> This is trial for the web app</p>
+    </div>
+    <div class="scatter-container">
+        <div class="tools">
+            <button id="reset">Reset</button>
+        </div>
+    </div>
+    <div style="flex: 0 0 50%;" id="world-map">
+        <div class="content-text">Continent-level Wine distribution</div>
+        <div id="chorplethdiv"></div>
+    </div>
+     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+{#  <script src="{{ url_for('static', filename='js/render_Plot.js') }}"></script>#}
+    <script src="{{ url_for('static', filename='js/Simple_D3.js') }}"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
+    <script src="{{ url_for('static', filename='js/d3-tip.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jenks.js') }}"></script>
+
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/maps.js"></script>
+    <script src="https://www.amcharts.com/lib/4/geodata/worldLow.js"></script>
+    <script src="https://www.amcharts.com/lib/4/geodata/continentsLow.js"></script>
+    <!-- <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script> -->
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/plugins/wordCloud.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.10.3/babel.min.js'></script>
+    <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+    <script lang='babel' type='text/babel' src="{{ url_for('static', filename='js/world_map.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/choropleth_map.js') }}"></script>
+{% endblock %}
