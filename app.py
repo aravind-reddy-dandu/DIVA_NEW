@@ -395,6 +395,135 @@ def getprovince_data():
     return jsonify(province_data)
 
 
+@app.route("/provincedrill_data", methods=['GET', 'POST'])
+def getprovincedrill_data():
+    con_prov_drill = cx_Oracle.connect(user=p_username, password=p_password,
+                                       dsn=p_host + "/" + p_service + ":" + p_port,
+                                       encoding="UTF-8",
+                                       nencoding="UTF-8")
+    country_name = request.args.get('country')
+    df_prov = pd.read_sql_query('''SELECT * FROM DRILL_DOWN_VIEW WHERE COUNTRY_NAME = :name ''', con_prov_drill,
+                                params={'name': country_name})
+
+    drill_data = {}
+    for t in drill_data:
+        print()
+    for index, row in df_prov.iterrows():
+        each_data = {}
+        if (drill_data.get(row['PROVINCE']) is not None):
+            each_data = drill_data[row['PROVINCE']]
+        child = {}
+        if (drill_data.get(row['PROVINCE']) is None) or (drill_data.get(row['PROVINCE']).get('wines') is None):
+            each_data['wines'] = []
+        if len(each_data['wines']) < 5:
+            each_data['wines'].append(child)
+        child['variety'] = row['VARIETY']
+        child['wine_cnt'] = row['V_WINE_CNT']
+        child['max_wine_level'] = row['WINE_LEVEL']
+        child['v_avg_points'] = row['V_AVG_POINTS']
+        child['v_avg_price'] = row['V_AVG_PRICE']
+        child['v_best_wine'] = row['V_TITLE']
+        each_data['province'] = row['PROVINCE']
+        each_data['p_wine_cnt'] = row['P_WINE_CNT']
+        each_data['p_avg_price'] = row['P_AVG_PRICE']
+        each_data['p_avg_points'] = row['P_AVG_POINTS']
+        drill_data[row['PROVINCE']] = each_data
+
+    return jsonify(drill_data)
+
+
+def processforcetreedata(data):
+    treeData = []
+
+    for taster in data:
+        tasterData = {
+            'name': taster,
+            'children': []
+        }
+        i = 0
+        for variety in data[taster]['children']:
+            tasterData['children'].append({
+                'name': data[taster]['children'][variety]['variety'],
+                'value': data[taster]['children'][variety]['wine_cnt'],
+                'children': []
+            })
+
+            for title in data[taster]['children'][variety]['children']:
+                tasterData['children'][i]['children'].append({
+                    'name': data[taster]['children'][variety]['children'][title]['title'],
+                    'value': data[taster]['children'][variety]['children'][title]['points'],
+                    'pointsrank': data[taster]['children'][variety]['children'][title]['pointsrank']
+                })
+
+            i = i + 1
+
+        treeData.append(tasterData)
+
+    return treeData
+
+
+@app.route("/directedtree_data", methods=['GET', 'POST'])
+def getdirectedtree_data():
+    con_dir_tree = cx_Oracle.connect(user=p_username, password=p_password,
+                                     dsn=p_host + "/" + p_service + ":" + p_port,
+                                     encoding="UTF-8",
+                                     nencoding="UTF-8")
+    df_prov = pd.read_sql_query('''SELECT * FROM TASTER_VARIETY_VIEW_TRIM''', con_dir_tree)
+
+    drill_data = {}
+    for index, row in df_prov.iterrows():
+        each_data = {}
+        if drill_data.get(row['TASTER_NAME']) is not None:
+            each_data = drill_data[row['TASTER_NAME']]
+        child = {}
+        if (drill_data.get(row['TASTER_NAME']) is None) or (drill_data.get(row['TASTER_NAME']).get('children') is None):
+            each_data['children'] = {}
+        elif drill_data.get(row['TASTER_NAME']).get('children').get(row['VARIETY']) is not None:
+            child = drill_data.get(row['TASTER_NAME']).get('children').get(row['VARIETY'])
+        each_data['children'][row['VARIETY']] = child
+        child['variety'] = row['VARIETY']
+        child['wine_cnt'] = row['WINE_CNT']
+        grandchild = {}
+        if (drill_data.get(row['TASTER_NAME']) is None) or (
+                drill_data.get(row['TASTER_NAME']).get('children') is None) or (
+                drill_data.get(row['TASTER_NAME']).get('children').get(row['VARIETY']).get('children') is None):
+            each_data['children'][row['VARIETY']]['children'] = {}
+        elif drill_data.get(row['TASTER_NAME']).get('children').get(row['VARIETY']).get('children').get(
+                row['TITLE']) is not None:
+            grandchild = drill_data.get(row['TASTER_NAME']).get('children').get(row['VARIETY']).get('children').get(
+                row['TITLE'])
+        each_data['children'][row['VARIETY']]['children'][row['TITLE']] = grandchild
+        grandchild['title'] = row['TITLE']
+        grandchild['pointsrank'] = row['POINTSRANK']
+        grandchild['points'] = row['POINTS']
+        each_data['taster_name'] = row['TASTER_NAME']
+        drill_data[row['TASTER_NAME']] = each_data
+    drill_data = processforcetreedata(drill_data)
+    return jsonify(drill_data)
+
+
+@app.route("/get_wine_description", methods=['GET', 'POST'])
+def get_wine_description():
+    taster_name = request.args.get('taster_name')
+    variety = request.args.get('variety')
+    con_dir_tree = cx_Oracle.connect(user=p_username, password=p_password,
+                                     dsn=p_host + "/" + p_service + ":" + p_port,
+                                     encoding="UTF-8",
+                                     nencoding="UTF-8")
+    df_prov = pd.read_sql_query('''select * from taster_variety_view_description
+WHERE taster_name = :taster
+AND variety       = :variety ''', con_dir_tree, params={'taster': taster_name, 'variety': variety})
+
+    desc_data = {}
+    for index, row in df_prov.iterrows():
+        each_data = {}
+        each_data['desc'] = row['DESCRIPTION']
+        each_data['fullname'] = row['FULLNAME']
+        desc_data[row['TITLE']] = each_data
+
+    return jsonify(desc_data)
+
+
 @app.route("/winelevel_data", methods=['GET', 'POST'])
 def winelevel_data():
     continent = request.args.get('continent')

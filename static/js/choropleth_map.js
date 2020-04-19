@@ -375,6 +375,7 @@ function generatewineleveldata(data, continent) {
     });
     wine_level_chart.exporting.menu = new am4core.ExportMenu();
     wine_level_chart.exporting.filePrefix = "Sommelier_data";
+    wine_level_chart.exporting.timeoutDelay = 5000;
     wine_level_chart.exporting.extraSprites.push({
         "marginTop": 200,
         "position": "bottom",
@@ -405,7 +406,7 @@ function generatewineleveldata(data, continent) {
         });
 
         pdf.doc.content.push({
-            text: "Selected continent is " + continent + ".Country with highest wine level(points/price) of "+wine_level_max+" is "
+            text: "Selected continent is " + continent + ".Country with highest wine level(points/price) of " + wine_level_max + " is "
                 + wine_level_country + ". This country has average points of " + wine_level_points +
                 ". Average price of wine in " + wine_level_country + " is " + wine_level_price,
             margin: [0, 10],
@@ -416,7 +417,7 @@ function generatewineleveldata(data, continent) {
 
         pdf.doc.content.push({
             text: "Selected country is " + treemap_country + ".Province in this country producing most number of wines is "
-                + treemap_province + ". With total "+treemap_wines+" number of wines, this province has average points of " + treemap_points +
+                + treemap_province + ". With total " + treemap_wines + " number of wines, this province has average points of " + treemap_points +
                 ". Average price of wine in " + treemap_province + " is " + treemap_price,
             margin: [0, 10],
             style: {
@@ -484,7 +485,7 @@ function generateProvinceChartData2(data, country) {
     treechart.dataFields.children = "children";
     treechart.dataFields.color = "color";
 
-    treechart.zoomable = false;
+    treechart.zoomable = true;
 
 // level 0 series template
     var level0SeriesTemplate = treechart.seriesTemplates.create("0");
@@ -518,14 +519,184 @@ function generateProvinceChartData2(data, country) {
     treechart.exporting.menu = new am4core.ExportMenu();
     treechart.exporting.filePrefix = "Sommelier_TreeChart";
     treechart.maxLevels = 2;
+    // drilldowntreemap('');
+}
+
+function processData(data) {
+    var treeData = [];
+
+    var smallBrands = {name: "Other", children: []};
+
+    for (var province in data) {
+        var provinceData = {
+            name: province,
+            children: [],
+            p_wine_cnt: data[province].p_wine_cnt,
+            avg_points: data[province].p_avg_points,
+            avg_price: data[province].p_avg_price
+        }
+        var brandTotal = 0;
+        // for (var model in data[province]) {
+        brandTotal += data[province].p_wine_cnt;
+        // }
+
+        for (var wine in data[province].wines) {
+            provinceData.children.push({
+                name: data[province].wines[wine].variety,
+                count: data[province].wines[wine].wine_cnt,
+                max_wine_level: data[province].wines[wine].max_wine_level,
+                v_avg_points: data[province].wines[wine].v_avg_points,
+                v_avg_price: data[province].wines[wine].v_avg_price,
+                v_best_wine: data[province].wines[wine].v_best_wine
+            });
+        }
+
+        // add to small brands if total number less than
+        if (brandTotal > 20) {
+            treeData.push(provinceData);
+        } else {
+            smallBrands.children.push(provinceData)
+        }
+
+    }
+    if (smallBrands.children.length !== 0) {
+        treeData.push(smallBrands);
+    }
+    return treeData;
+}
+
+function drilldowntreemap(data, country) {
+    am4core.ready(function () {
+
+// Themes begin
+        am4core.useTheme(am4themes_animated);
+// Themes end
+
+
+        // create chart
+        treechart = am4core.create("drilldowntree", am4charts.TreeMap);
+        treechart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
+
+        // only one level visible initially
+        treechart.maxLevels = 1;
+        // define data fields
+        treechart.dataFields.value = "count";
+        treechart.dataFields.name = "name";
+        treechart.dataFields.children = "children";
+        // chart.homeText = "US Car Sales 2017";
+
+        // enable navigation
+        treechart.navigationBar = new am4charts.NavigationBar();
+
+        // level 0 series template
+        var level0SeriesTemplate = treechart.seriesTemplates.create("0");
+        level0SeriesTemplate.strokeWidth = 2;
+
+        var bullet4 = level0SeriesTemplate.bullets.push(new am4charts.LabelBullet());
+        bullet4.locationX = 0.5;
+        bullet4.locationY = 0.5;
+        bullet4.label.text = "{name}";
+        bullet4.label.fill = am4core.color("#ffffff");
+        bullet4.tooltipText = "{name}- Wines:{p_wine_cnt} Average price: {avg_price}\n Average Points: {avg_points}";
+
+
+        // by default only current level series bullets are visible, but as we need brand bullets to be visible all the time, we modify it's hidden state
+        // level0SeriesTemplate.bulletsContainer.hiddenState.properties.opacity = 1;
+        // level0SeriesTemplate.bulletsContainer.hiddenState.properties.visible = true;
+
+        // create hover state
+        var columnTemplate = level0SeriesTemplate.columns.template;
+        var hoverState = columnTemplate.states.create("hover");
+        columnTemplate.column.cornerRadius(10, 10, 10, 10);
+        columnTemplate.tooltipText = "{name}- Wines:{p_wine_cnt} Average price: {avg_price}\n Average Points: {avg_points}";
+
+
+        // darken
+        hoverState.adapter.add("fill", function (fill, target) {
+            if (fill instanceof am4core.Color) {
+                return am4core.color(am4core.colors.brighten(fill.rgb, -0.2));
+            }
+            return fill;
+        })
+
+        // level1 series template
+        var level1SeriesTemplate = treechart.seriesTemplates.create("1");
+        level1SeriesTemplate.columns.template.fillOpacity = 0;
+        level1SeriesTemplate.columns.template.tooltipText = "{name}- Wines:{value} Average price: " +
+            "{v_avg_price}\n Average Points: {v_avg_points} Best wine level: {max_wine_level}" +
+            "\n Best Wine:{v_best_wine}";
+
+        var bullet1 = level1SeriesTemplate.bullets.push(new am4charts.LabelBullet());
+        bullet1.locationX = 0.5;
+        bullet1.locationY = 0.5;
+        bullet1.label.text = "{name}";
+        bullet1.label.fill = am4core.color("#ffffff");
+        bullet1.tooltipText = "{name}- Wines:{value} Average price: {v_avg_price}\n Average Points: {v_avg_points}" +
+            "\n Best Wine:{v_best_wine}";
+
+
+        // level2 series template
+        var level2SeriesTemplate = treechart.seriesTemplates.create("2");
+        level2SeriesTemplate.columns.template.fillOpacity = 0;
+        level2SeriesTemplate.columns.template.column.cornerRadius(10, 10, 10, 10);
+
+
+        var bullet2 = level2SeriesTemplate.bullets.push(new am4charts.LabelBullet());
+        bullet2.locationX = 0.5;
+        bullet2.locationY = 0.5;
+        bullet2.label.text = "{name}";
+        bullet2.label.fill = am4core.color("#ffffff");
+
+        let treechartdata = processData(data);
+        treechart.data = treechartdata;
+
+        var wines_array = [];
+        var province_array = [];
+        var price_array = [];
+        var points_array = [];
+        for (var i = 0; i < treechartdata.length; i++) {
+            wines_array[i] = treechartdata[i].p_wine_cnt;
+            province_array[i] = treechartdata[i].name;
+            price_array[i] = treechartdata[i].avg_price;
+            points_array[i] = treechartdata[i].avg_points;
+        }
+
+        treemap_wines = Math.max(...wines_array);
+        let k = wines_array.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
+        treemap_province = province_array[k];
+        treemap_points = points_array[k];
+        treemap_price = price_array[k];
+        treemap_country = country;
+
+        var div = document.getElementById('drilldownheader');
+        if (treechartdata.length === 0) {
+            div.style.height = '50px';
+            div.textContent = country.charAt(0).toUpperCase() + country.substring(1).toLowerCase() + " has no province distribution";
+
+        } else {
+            div.style.height = '50px';
+            div.textContent = country.charAt(0).toUpperCase() + country.substring(1).toLowerCase() + " distribution across provinces";
+
+        }
+
+        treechart.exporting.menu = new am4core.ExportMenu();
+        treechart.exporting.filePrefix = "Sommelier_TreeChart";
+
+    }); // end am4core.ready()
 }
 
 function prepare_treemap(country) {
 
-    fetch('http://127.0.0.1:5000/province_data?country=' + country)
+    // fetch('http://127.0.0.1:5000/province_data?country=' + country)
+    //     .then(res => res.json())
+    //     .then((out) => {
+    //         generateProvinceChartData2(out, country);
+    //     })
+
+    fetch('http://127.0.0.1:5000/provincedrill_data?country=' + country)
         .then(res => res.json())
         .then((out) => {
-            generateProvinceChartData2(out, country);
+            drilldowntreemap(out, country);
         })
 }
 
