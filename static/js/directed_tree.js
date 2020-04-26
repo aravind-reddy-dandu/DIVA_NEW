@@ -9,7 +9,7 @@ function processforcetreedata(data) {
         var tasterData = {
             name: taster,
             children: []
-        }
+        };
         var i = 0;
         for (var variety in data[taster].children) {
             tasterData.children.push({
@@ -43,7 +43,8 @@ function prepareforcetreemap(data) {
         chart = am4core.create("dirtreebody", am4plugins_forceDirected.ForceDirectedTree);
         chart.legend = new am4charts.Legend();
 
-        networkSeries = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
+
+        networkSeries = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries());
 
         chart.dataSource.url = "http://127.0.0.1:5000/directedtree_data";
 

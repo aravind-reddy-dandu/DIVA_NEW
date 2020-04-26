@@ -348,23 +348,32 @@ function generatewineleveldata(data, continent) {
     valueAxis.renderer.minWidth = 0;
     valueAxis.renderer.minGridDistance = 20;
 
-    let labelTemplate = categoryAxis.renderer.labels.template;
-    labelTemplate.rotation = -90;
-    labelTemplate.horizontalCenter = "left";
-    labelTemplate.verticalCenter = "middle";
-    labelTemplate.dy = 10; // moves it a bit down;
-    // labelTemplate.fontsize= 10;
-    labelTemplate.tooltipText = "Country : {Country} \n Points:{Points} \n Price:{Price} \n Wine Level:{Wine_Level}";
-    labelTemplate.inside = false; // this is done to avoid settings which are not suitable when label is rotated
-
-
     var series = wine_level_chart.series.push(new am4charts.ConeSeries());
     series.dataFields.categoryX = "Country_Code";
     series.dataFields.valueY = "Wine_Level";
     series.columns.template.tooltipText = "Country : {Country} \n Points:{Points} \n Price:{Price} \n Wine Level:{Wine_Level}";
     series.columns.template.tooltipY = 0;
     series.columns.template.strokeOpacity = 1;
-
+    let labelTemplate = categoryAxis.renderer.labels.template;
+    if (continent != 'Europe') {
+        labelTemplate.rotation = -90;
+        labelTemplate.horizontalCenter = "left";
+        labelTemplate.verticalCenter = "middle";
+        labelTemplate.dy = 10; // moves it a bit down;
+        // labelTemplate.fontsize= 10;
+        labelTemplate.tooltipText = "Country : {Country} \n Points:{Points} \n Price:{Price} \n Wine Level:{Wine_Level}";
+        labelTemplate.inside = false; // this is done to avoid settings which are not suitable when label is rotated
+    } else {
+        labelTemplate.disabled = true;
+        var valueLabel = series.bullets.push(new am4charts.LabelBullet());
+        valueLabel.label.text = "{Country_Code}";
+        valueLabel.label.fontSize = 10;
+        valueLabel.rotation = -45;
+        valueLabel.label.truncate = false;
+        valueLabel.label.hideOversized = false;
+        valueLabel.label.horizontalCenter = "left";
+        valueLabel.tooltipText = "Country : {Country} \n Points:{Points} \n Price:{Price} \n Wine Level:{Wine_Level}";
+    }
 // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
     series.columns.template.adapter.add("fill", function (fill, target) {
         return wine_level_chart.colors.getIndex(target.dataItem.index);
@@ -532,6 +541,7 @@ function processData(data) {
             name: province,
             children: [],
             p_wine_cnt: data[province].p_wine_cnt,
+            count: data[province].p_wine_cnt,
             avg_points: data[province].p_avg_points,
             avg_price: data[province].p_avg_price
         }

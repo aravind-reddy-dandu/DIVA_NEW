@@ -406,17 +406,32 @@ def getprovincedrill_data():
                                 params={'name': country_name})
 
     drill_data = {}
-    for t in drill_data:
-        print()
+    othercnt = 0
     for index, row in df_prov.iterrows():
         each_data = {}
         if (drill_data.get(row['PROVINCE']) is not None):
             each_data = drill_data[row['PROVINCE']]
+        else:
+            othercnt=0
         child = {}
         if (drill_data.get(row['PROVINCE']) is None) or (drill_data.get(row['PROVINCE']).get('wines') is None):
             each_data['wines'] = []
         if len(each_data['wines']) < 5:
             each_data['wines'].append(child)
+        else:
+            othercnt = row['V_WINE_CNT'] + othercnt
+            others = {}
+            others['variety'] = "Others"
+            others['wine_cnt'] = othercnt
+            others['max_wine_level'] = row['WINE_LEVEL']
+            others['v_avg_points'] = row['V_AVG_POINTS']
+            others['v_avg_price'] = row['V_AVG_PRICE']
+            others['v_best_wine'] = ''
+            for i in range(len(each_data['wines'])):
+                if each_data['wines'][i].get('variety') == "Others":
+                    del each_data['wines'][i]
+                    break
+            each_data['wines'].append(others)
         child['variety'] = row['VARIETY']
         child['wine_cnt'] = row['V_WINE_CNT']
         child['max_wine_level'] = row['WINE_LEVEL']
