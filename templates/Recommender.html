@@ -1,87 +1,92 @@
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
 
-    <head>
-{#      <meta charset="utf-8">#}
-      <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<head>
+    {#      <meta charset="utf-8">#}
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-      <title>Virtual Sommelier</title>
-      <meta content="" name="descriptison">
-      <meta content="" name="keywords">
+    <title>Virtual Sommelier</title>
+    <meta content="" name="descriptison">
+    <meta content="" name="keywords">
 
-      <!-- Google Fonts -->
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-      <link rel="shortcut icon" href="{{ url_for('static', filename='Images/Tab.png') }}">
-      <!-- Vendor CSS Files -->
-      <link href="../static/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-      <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Images/Tab.png') }}">
+    <!-- Vendor CSS Files -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
 
-      <!-- Template Main CSS File -->
-      <link href="../static/css/style.css" rel="stylesheet">
-      <link href="../static/css/boot_style.css" rel="stylesheet">
-      <script src="../static/vendor/jquery/jquery.min.js"></script>
-      <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <script src="../static/vendor/jquery.easing/jquery.easing.min.js"></script>
-      <script src="../static/vendor/php-email-form/validate.js"></script>
-      <script src="../static/vendor/waypoints/jquery.waypoints.min.js"></script>
-      <script src="../static/vendor/counterup/counterup.min.js"></script>
-      <script src="../static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-      <script src="../static/vendor/venobox/venobox.min.js"></script>
-      <script src="../static/vendor/owl.carousel/owl.carousel.min.js"></script>
-      <script src="../static/vendor/typed.js/typed.min.js"></script>
-      <script src="../static/vendor/aos/aos.js"></script>
-      <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-      <script src="https://d3js.org/d3.v5.min.js"></script>
-      <script src="{{ url_for('static', filename='js/Simple_D3.js') }}"></script>
-      <script src="http://d3js.org/queue.v1.min.js"></script>
-      <script src="http://d3js.org/topojson.v1.min.js"></script>
-      <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
-      <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
-      <script src="{{ url_for('static', filename='js/d3-tip.js') }}"></script>
-      <script src="{{ url_for('static', filename='js/jenks.js') }}"></script>
-      <script src="https://www.amcharts.com/lib/4/core.js"></script>
-            <script src="https://www.amcharts.com/lib/4/maps.js"></script>
-            <script src="https://www.amcharts.com/lib/4/geodata/worldLow.js"></script>
-            <script src="https://www.amcharts.com/lib/4/geodata/continentsLow.js"></script>
-            <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-            <script src="https://www.amcharts.com/lib/4/plugins/wordCloud.js"></script>
-            <script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
-            <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-            <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.10.3/babel.min.js'></script>
-            <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
-            <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-            <script lang='babel' type='text/babel' src="{{ url_for('static', filename='js/world_map.js') }}"></script>
-            <script src="{{ url_for('static', filename='js/choropleth_map.js') }}"></script>
-            <script src="{{ url_for('static', filename='js/Tree_Map.js') }}"></script>
-            <script src="{{ url_for('static', filename='js/CountryBar.js') }}"></script>
+    <!-- Template Main CSS File -->
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link href="../static/css/boot_style.css" rel="stylesheet">
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="../static/vendor/php-email-form/validate.js"></script>
+    <script src="../static/vendor/waypoints/jquery.waypoints.min.js"></script>
+    <script src="../static/vendor/counterup/counterup.min.js"></script>
+    <script src="../static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="../static/vendor/venobox/venobox.min.js"></script>
+    <script src="../static/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="../static/vendor/typed.js/typed.min.js"></script>
+    <script src="../static/vendor/aos/aos.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="{{ url_for('static', filename='js/Simple_D3.js') }}"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
+    <script src="{{ url_for('static', filename='js/d3-tip.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jenks.js') }}"></script>
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/maps.js"></script>
+    <script src="https://www.amcharts.com/lib/4/geodata/worldLow.js"></script>
+    <script src="https://www.amcharts.com/lib/4/geodata/continentsLow.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/plugins/wordCloud.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.10.3/babel.min.js'></script>
+    <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://www.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+    <script lang='babel' type='text/babel' src="{{ url_for('static', filename='js/world_map.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/choropleth_map.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/Tree_Map.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/CountryBar.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/Recommender.js') }}"></script>
 
-      <!-- Template Main JS File -->
-     <!-- <script src="../static/js/boot.js"></script> -->
+    <!-- Template Main JS File -->
+    <!-- <script src="../static/js/boot.js"></script> -->
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-    {% block body %}
+{% block body %}
 
-      <div style="height: 100%; ">
+    <div style="height: 100%; ">
 
         <div class="row">
             <div class="col-xl-2 col-lg-2 fixed-top" id="left" style="text-align: right">
-                  <div class="profile">
+                <div class="profile">
                     <img src="../static/Images/Logo.png" alt="" class="img-fluid rounded-circle">
-                  </div>
+                </div>
 
-                  <nav class="nav-menu">
+                <nav class="nav-menu">
                     <ul>
-                      <li><a href="Overview"><i class="bx bx-home"></i> <span>Overview</span></a></li>
-                      <li><a href="Search_your_Wine"><i class="bx bx-search"></i> <span>Search Your Wine</span></a></li>
-                      <li><a href="Know_your_wines"><i class="bx bx-book-open"></i> <span>Know Your Wines</span></a></li>
-                      <li class="active"><a href="Recommender"><i class="bx bxs-wine"></i> Recommender</a></li>
-
+                        <li><a href="Overview"><i class="bx bxs-dashboard"></i> <span>Overview</span></a></li>
+                        <li><a href="Search_your_Wine"><i class="bx bx-search"></i> <span>Search Your Wine</span></a>
+                        </li>
+                        <li><a href="Know_your_wines"><i class="bx bx-book-open"></i> <span>Know Your Wines</span></a>
+                        </li>
+                        <li><a href="Taster"><i class="bx bxs-group"></i> Enthusiasts</a></li>
+                        <li class="active"><a href="Recommender"><i class="bx bxs-wine"></i> Recommender</a></li>
                     </ul>
-                  </nav><!-- .nav-menu -->
+                </nav><!-- .nav-menu -->
 
             </div>
             <div class="col-xl-10 col-lg-10 offset-xl-2 offset-lg-2">
@@ -91,79 +96,79 @@
                     </div>
                 </div>
                 <form method="POST" action="/Recommender">
-                <div class="row">
-                    <div class="col-xl-2" style="text-align: center;margin-top: 1vw;">
-                        <label for="country">Select Country</label>
+                    <div class="row">
+                        <div class="col-xl-2" style="text-align: center;margin-top: 1vw;">
+                            <label for="country">Select Country</label>
+                        </div>
+                        <div class="col-xl-3">
+                            <select id="country" name="country">
+                                <option value="{{ country }}">{{ country }} </option>
+                                <option value="Italy">Italy</option>
+                                <option value="Spain">Spain</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="South Africa">South Africa</option>
+                                <option value="Austria">Austria</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Chile">Chile</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Germany">Germany</option>
+                                <option value="France">France</option>
+                                <option value="US">US</option>
+                                <option value="Portugal">Portugal</option>
+                            </select>
+                        </div>
+                        <div class="col-xl-2" style="text-align: center;margin-top: 1vw;">
+                            <label for="variety">Select Variety</label>
+                        </div>
+                        <div class="col-xl-3">
+                            <select id="variety" name="variety">
+                                <option value="{{ user_var }}"> {{ user_var }}</option>
+                                <option value="Sauvignon Blanc">Sauvignon Blanc</option>
+                                <option value="White Blend">White Blend</option>
+                                <option value="Portuguese Red">Portuguese Red</option>
+                                <option value="Pinot Gris">Pinot Gris</option>
+                                <option value="Riesling">Riesling</option>
+                                <option value="Pinot Noir">Pinot Noir</option>
+                                <option value="Cabernet Sauvignon">Cabernet Sauvignon</option>
+                                <option value="Chardonnay">Chardonnay</option>
+                                <option value="Malbec">Malbec</option>
+                                <option value="Red Blend">Red Blend</option>
+                                <option value="Merlot">Merlot</option>
+                                <option value="Gamay">Gamay</option>
+                                <option value="Bordeaux-style White Blend">Bordeaux-style White Blend</option>
+                                <option value="Sangiovese">White Blend</option>
+                                <option value="Cabernet Franc">Portuguese Red</option>
+                                <option value="Champagne Blend">Champagne Blend</option>
+                                <option value="Bordeaux-style Red Blend'">Riesling</option>
+                                <option value="Ros�">Ros�</option>
+                                <option value="Zinfandel">Zinfandel</option>
+                                <option value="Gr�ner Veltliner">Gr�ner Veltliner</option>
+                                <option value="Syrah">Syrah</option>
+                                <option value="Nebbiolo">Red Blend</option>
+                                <option value="Rh�ne-style Red Blend">Rh�ne-style Red Blend</option>
+                                <option value="Pinot Grigio">Pinot Grigio</option>
+                                <option value="Portuguese White">Portuguese White</option>
+                                <option value="Sparkling Blend">Sparkling Blend</option>
+                                <option value="Nebbiolo">Red Blend</option>
+                                <option value="Tempranillo">Tempranillo</option>
+                            </select>
+                        </div>
+                        <div class="col-xl-2">
+                            <input type="submit" value="Submit" class="submit">
+                        </div>
                     </div>
-                    <div class="col-xl-3">
-                        <select id="country" name="country">
-                            <option value="{{ country }}">{{ country }} </option>
-                            <option value="Italy">Italy</option>
-                            <option value="Spain">Spain</option>
-                            <option value="New Zealand">New Zealand</option>
-                            <option value="South Africa">South Africa</option>
-                            <option value="Austria">Austria</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Chile">Chile</option>
-                            <option value="Argentina">Argentina</option>
-                            <option value="Germany">Germany</option>
-                            <option value="France">France</option>
-                            <option value="US">US</option>
-                            <option value="Portugal">Portugal</option>
-                        </select>
-                    </div>
-                    <div class="col-xl-2" style="text-align: center;margin-top: 1vw;">
-                        <label for="variety">Select Variety</label>
-                    </div>
-                    <div class="col-xl-3" >
-                        <select id="variety"  name="variety">
-                            <option value="{{user_var}}"> {{ user_var }}</option>
-                            <option value="Sauvignon Blanc">Sauvignon Blanc</option>
-                            <option value="White Blend">White Blend</option>
-                            <option value="Portuguese Red">Portuguese Red</option>
-                            <option value="Pinot Gris">Pinot Gris</option>
-                            <option value="Riesling">Riesling</option>
-                            <option value="Pinot Noir">Pinot Noir</option>
-                            <option value="Cabernet Sauvignon">Cabernet Sauvignon</option>
-                            <option value="Chardonnay">Chardonnay</option>
-                            <option value="Malbec">Malbec</option>
-                            <option value="Red Blend">Red Blend</option>
-                            <option value="Merlot">Merlot</option>
-                            <option value="Gamay">Gamay</option>
-                            <option value="Bordeaux-style White Blend">Bordeaux-style White Blend</option>
-                            <option value="Sangiovese">White Blend</option>
-                            <option value="Cabernet Franc">Portuguese Red</option>
-                            <option value="Champagne Blend">Champagne Blend</option>
-                            <option value="Bordeaux-style Red Blend'">Riesling</option>
-                            <option value="Ros�">Ros�</option>
-                            <option value="Zinfandel">Zinfandel</option>
-                            <option value="Gr�ner Veltliner">Gr�ner Veltliner</option>
-                            <option value="Syrah">Syrah</option>
-                            <option value="Nebbiolo">Red Blend</option>
-                            <option value="Rh�ne-style Red Blend">Rh�ne-style Red Blend</option>
-                            <option value="Pinot Grigio">Pinot Grigio</option>
-                            <option value="Portuguese White">Portuguese White</option>
-                            <option value="Sparkling Blend">Sparkling Blend</option>
-                            <option value="Nebbiolo">Red Blend</option>
-                            <option value="Tempranillo">Tempranillo</option>
-                        </select>
-                    </div>
-                    <div class="col-xl-2" >
-                        <input type="submit" value="Submit" class="submit">
-                    </div>
-                </div>
                 </form>
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header"><span>Descriptive Wine Review Generation</span></div>
                             <div class="card-body">
-                              {{ z }}
+                                {{ z }}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="display: none">
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header"><span>Suggestion for {{ user_var }}</span></div>
@@ -171,42 +176,242 @@
                     </div>
                 </div>
                 {% for item in list %}
-                <div class="row">
-                    <div class="col-xl-12">
+                    <div class="row" style="display: none">
+                        <div class="col-xl-12">
                             <p> {{ item }} </p>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <div id="recomdiv"></div>
+                </div>
+                <div class="row " style="margin-top: 50px">
+                    <div class="col-xl-6 col-xl-offset-3 form-container">
+                        <h2>Feedback</h2>
+                        <p>
+                            Please provide your feedback below:
+                        </p>
+                        <form role="form" method="post" id="reused_form">
+                            <div class="row">
+                                <div class="col-xl-12 form-group">
+                                    <label>How do you rate your overall experience?</label>
+                                    <p>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="experience" id="radio_experience" value="bad">
+                                            Bad
+                                        </label>
+
+                                        <label class="radio-inline">
+                                            <input type="radio" name="experience" id="radio_experience" value="average">
+                                            Average
+                                        </label>
+
+                                        <label class="radio-inline">
+                                            <input type="radio" name="experience" id="radio_experience" value="good">
+                                            Good
+                                        </label>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 form-group">
+                                    <label for="comments">
+                                        Comments:</label>
+                                    <textarea class="form-control" type="textarea" name="comments" id="comments"
+                                              placeholder="Your Comments" maxlength="6000" rows="7"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 form-group">
+                                    <label for="name">
+                                        Your Name:</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="col-xl-6 form-group">
+                                    <label for="email">
+                                        Email:</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-12 form-group">
+                                    <button class="btn btn-lg btn-warning btn-block"
+                                            onclick="alert('Thank you for your feedback.');">Post
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                        <div id="success_message" style="width:100%; height:100%; display:none; ">
+                            <h3>Posted your feedback successfully!</h3>
+                        </div>
+                        <div id="error_message"
+                             style="width:100%; height:100%; display:none; ">
+                            <h3>Error</h3>
+                            Sorry there was an error sending your form.
+
+                        </div>
                     </div>
                 </div>
-                {% endfor %}
+
+            </div>
         </div>
-        </div>
 
 
-      </div>
+    </div>
 
-    {% endblock %}
-
-
-      <!-- Vendor JS Files -->
-    <script type="text/javascript">
-        $(document).ready(function (){
-            $('form').on('submit'),function(event){
-                $.ajax({
-                    data: {
-                        x : $('country').val(),
-                        y: $('variety').val()
-                    },
-                    type: 'POST',
-                    url:'/Recommender'
-                })
+{% endblock %}
+<script>
+    $(document).ready(function () {
+        $('form').on('submit'), function (event) {
+            $.ajax({
+                data: {
+                    x: $('country').val(),
+                    y: $('variety').val()
+                },
+                type: 'POST',
+                url: '/Recommender'
+            })
                 .done(function (data) {
                     print('sucess');
                 });
             event.preventDefault();
 
+        }
+    });
+
+
+    am4core.ready(function () {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+
+        var chart = am4core.create("recomdiv", am4plugins_forceDirected.ForceDirectedTree);
+        var networkSeries = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
+
+        chart.data = [
+            {
+                name: "Recommendations", value: 700,
+                children: [
+
+                    {
+                        name: "{{x0}}", value: "{{s0}}",
+                        children: [
+                            {name: "{{ t0 }}", value: "{{s0/1.15}}"},
+                            {name: "{{ t1 }}", value: "{{s0/1.15}}"},
+                            {name: "{{ t2 }}", value: "{{s0/1.15}}"}
+                        ]
+                    },
+                    {
+                        name: "{{x1}}", value: "{{s1}}",
+                        children: [
+                            {name: "{{ o1 }}", value: "{{s1/1.15}}"},
+                            {name: "{{ o2 }}", value: "{{s1/1.15}}"},
+                            {name: "{{ o3 }}", value: "{{s1/1.15}}"}
+                        ]
+                    },
+
+                    {
+                        name: "{{x2}}", value: "{{s2}}",
+                        children: [
+                            {name: "{{ k1 }}", value: "{{s2/1.15}}"},
+                            {name: "{{ k2 }}", value: "{{s2/1.15}}"},
+                            {name: "{{ k3 }}", value: "{{s2/1.15}}"}
+                        ]
+
+                    },
+                    {
+                        name: "{{x3}}", value: "{{s3}}",
+                        children: [
+                            {name: "{{ r1 }}", value: "{{s3/1.15}}"},
+                            {name: "{{ r2 }}", value: "{{s3/1.15}}"},
+                            {name: "{{ r3 }}", value: "{{s3/1.15}}"}
+                        ]
+
+                    },
+                    {
+                        name: "{{x4}}", value: "{{s4}}",
+                        children: [
+                            {name: "{{ y1 }}", value: "{{s4/1.15}}"},
+                            {name: "{{ y2 }}", value: "{{s4/1.15}}"},
+                            {name: "{{ y3 }}", value: "{{s4/1.15}}"}
+                        ]
+
+                    },
+                    {
+                        name: "{{x5}}", value: "{{s5}}",
+                        children: [
+                            {name: "{{ h1 }}", value: "{{s5/1.15}}"},
+                            {name: "{{ h2 }}", value: "{{s5/1.15}}"},
+                            {name: "{{ h3 }}", value: "{{s5/1.15}}"}
+                        ]
+
+                    },
+                    {
+                        name: "{{x6}}", value: "{{s6}}",
+                        children: [
+                            {name: "{{ j1 }}", value: "{{s6/1.15}}"},
+                            {name: "{{ j2 }}", value: "{{s6/1.15}}"},
+                            {name: "{{ j3 }}", value: "{{s6/1.15}}"}
+                        ]
+                    }
+
+                ]
             }
-        });
-    </script>
+        ]
+        ;
 
-    </body>
+        networkSeries.dataFields.value = "value";
+        networkSeries.dataFields.name = "name";
+        networkSeries.dataFields.children = "children";
+        networkSeries.nodes.template.tooltipText = "{name}:{value}";
 
-    </html>
+        networkSeries.nodes.template.fillOpacity = 1;
+        networkSeries.nodes.template.label.hideOversized = true;
+        networkSeries.nodes.template.label.truncate = true;
+        networkSeries.maxLevels = 2;
+
+
+        networkSeries.nodes.template.label.text = "{name}"
+        networkSeries.fontSize = 10;
+
+        networkSeries.links.template.strokeWidth = 5;
+
+
+        var hoverState = networkSeries.links.template.states.create("hover");
+        hoverState.properties.strokeWidth = 3;
+        hoverState.properties.strokeOpacity = 1;
+
+        networkSeries.nodes.template.events.on("over", function (event) {
+            event.target.dataItem.childLinks.each(function (link) {
+                link.isHover = true;
+            })
+            if (event.target.dataItem.parentLink) {
+                event.target.dataItem.parentLink.isHover = true;
+            }
+
+        })
+        networkSeries.nodes.template.events.on("hit", function (ev) {
+            ev.target.dataItem.children.values.forEach(function (child) {
+                child.collapsed = true
+            })
+        }, this);
+
+        networkSeries.nodes.template.events.on("out", function (event) {
+            event.target.dataItem.childLinks.each(function (link) {
+                link.isHover = false;
+            })
+            if (event.target.dataItem.parentLink) {
+                event.target.dataItem.parentLink.isHover = false;
+            }
+        })
+
+    });
+</script>
+
+</body>
+
+</html>

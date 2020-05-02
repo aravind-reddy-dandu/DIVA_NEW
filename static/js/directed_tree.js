@@ -85,7 +85,7 @@ function prepareforcetreemap(data) {
                     case 1:
                         return "{name}:{value}";
                     case 2:
-                        return "Points:{value} Fullname: {fullname}\n Description:{desc}";
+                        return "Points:{value}\nFullname: {fullname}\n Description:{desc}";
                 }
             }
             return text;

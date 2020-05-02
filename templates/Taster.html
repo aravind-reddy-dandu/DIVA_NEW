@@ -52,19 +52,18 @@
     <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-    <script lang='babel' type='text/babel' src="{{ url_for('static', filename='js/world_map.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/choropleth_map.js') }}"></script>
-    {#    <script src="{{ url_for('static', filename='js/Tree_Map.js') }}"></script>#}
-    {#    <script src="{{ url_for('static', filename='js/CountryBar.js') }}"></script>#}
+    <script src="https://www.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+    <script src="{{ url_for('static', filename='js/directed_tree.js') }}"></script>
+
     <!-- Template Main JS File -->
     <!-- <script src="../static/js/boot.js"></script> -->
 
 </head>
 
-<body style="overflow: hidden">
+<body style="overflow: hidden;">
 
 {% block body %}
-    <div style="height: 95%; margin-right: 0.5vw;">
+    <div style="height: 100%; ">
 
         <div class="row">
             <div class="col-xl-2 col-lg-2 fixed-top" id="left" style="text-align: right">
@@ -74,14 +73,12 @@
 
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="Overview"><i class="bx bxs-dashboard"></i> <span>Overview</span></a>
-                        </li>
-                        <li><a href="Search_your_Wine"><i class="bx bx-search"></i> <span>Search Your Wine</span></a>
-                        </li>
-                        <li><a href="Know_your_wines"><i class="bx bx-book-open"></i> <span>Know Your Wines</span></a>
-                        </li>
-                        <li><a href="Taster"><i class="bx bxs-group"></i> Enthusiasts</a></li>
-                        <li><a href="Recommender"><i class="bx bxs-wine"></i> Recommender</a></li>
+                        <li><a href="Overview"><i class="bx bxs-dashboard"></i> <span>Overview</span></a></li>
+                      <li><a href="Search_your_Wine"><i class="bx bx-search"></i> <span>Search Your Wine</span></a></li>
+                      <li><a href="Know_your_wines"><i class="bx bx-book-open"></i> <span>Know Your Wines</span></a></li>
+                      <li class="active"><a href="Taster"><i class="bx bxs-group"></i> Enthusiasts</a></li>
+                      <li><a href="Recommender"><i class="bx bxs-wine"></i> Recommender</a></li>
+
                     </ul>
                 </nav><!-- .nav-menu -->
 
@@ -89,41 +86,16 @@
             <div class="col-xl-10 col-lg-10 offset-xl-2 offset-lg-2">
                 <div class="row" id="explore" style="align-content: center; height: 50px">
                     <div class="col-xl-12 col-lg-12">
-                        <span>Explore the world of wines</span>
-                    </div>
-                    <div id="HelpDIV">
-                        <table width="100%" border='0' cellpadding='0' cellspacing='0'>
-                            <tr>
-                                <td>Download as pdf</td>
-                                <td align="right"><input type="button" id="btnHelp" name="btnHelp"
-                                                         title="Download current view as pdf" class="Help_Button"
-                                                         style="width: 24px; height: 24px;" onclick="saveFile();"/></td>
-                            </tr>
-                        </table>
+                        <span>Know about the reviewers</span>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-8 col-lg-8">
-                        <div class="card" id="continent">
-                            <div class="card-header" id="world-map">
-                                <div>Continent-level Wine distribution</div>
+                    <div class="col-xl-12 col-lg-12">
+                        <div class="card" style="height: 43vw;margin-right: 1vw;">
+                            <div class="card-header" id="dirTreeheader">
+                                <div>Reviewer-variety-wine distribution</div>
                             </div>
-                            <div class="card-body" id="chorplethdiv"></div>
-
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4">
-                        <div class="card" id="bar">
-                            <div class="card-header"><span id="treemapheader"></span></div>
-                            <div class="card-body" id="bardiv"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12" style="padding-top: 1vw;">
-                        <div class="card" id="chart">
-                            <div class="card-header"><span id="drilldownheader"></span></div>
-                            <div class="card-body" id="drilldowntree"></div>
+                            <div class="card-body" id="dirtreebody"></div>
                         </div>
                     </div>
                 </div>

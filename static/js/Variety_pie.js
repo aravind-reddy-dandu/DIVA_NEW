@@ -293,7 +293,7 @@ function generateVarietyChartData(data, variety, color) {
     title.horizontalCenter = "right";
     title.fontWeight = "600";*/
    var div= document.getElementById('pictureheader');
-   div.textContent= "Countries producing " + variety + " wine";
+   div.textContent= "Countries producing " + variety + " variety";
 
     blurFilter = new am4core.BlurFilter();
     blurFilter.blur = 0;
@@ -340,7 +340,10 @@ function generateVarietyWineChartData(data, variety, color) {
     categoryAxis.renderer.minGridDistance = 20;
 
     categoryAxis.renderer.labels.template.disabled = true;
-    categoryAxis.title.text = "Popular " + variety + " wines";
+    categoryAxis.title.text = "Best " + variety + " wines";
+
+    var div= document.getElementById('barcardheader');
+   div.textContent= "Best " + variety + " wines";
 
     var valueAxis = simple_barchart.xAxes.push(new am4charts.ValueAxis());
     valueAxis.renderer.maxLabelPosition = 0.98;
@@ -400,6 +403,8 @@ function generateVarietywordcloudchartData(data, variety, color) {
     series.labels.template.margin(4, 4, 4, 4);
     series.labels.template.fill = am4core.color("#"+hexcolor);
     series.text = data[0].desc;
+    var div= document.getElementById('wordcloudcardheader');
+   div.textContent= "Word cloud for " + variety + " variety";
 
     // series.colors = new am4core.ColorSet();
     // series.colors.passOptions = {}; // makes it loop

@@ -34,19 +34,18 @@
 <body>
 {% block body %}
     <div style="height: 100%;">
-        <div class="row" style="width: 100%">
+        <div class="row" style="width: 100%;margin: 0px !important;">
             <div class="col-xl-2 col-lg-2 fixed-top" id="left" style="text-align: right">
                 <div class="profile">
                     <img src="../static/Images/Logo.png" alt="" class="img-fluid rounded-circle">
                 </div>
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="Overview"><i class="bx bx-home"></i> <span>Overview</span></a></li>
-                        <li><a href="Search_your_Wine"><i class="bx bx-search"></i> <span>Search Your Wine</span></a>
-                        </li>
-                        <li><a href="Know_your_wines"><i class="bx bx-book-open"></i> <span>Know Your Wines</span></a>
-                        </li>
-                        <li><a href="Recommender"><i class="bx bxs-wine"></i> Recommender</a></li>
+                        <li><a href="Overview"><i class="bx bxs-dashboard"></i> <span>Overview</span></a></li>
+                      <li><a href="Search_your_Wine"><i class="bx bx-search"></i> <span>Search Your Wine</span></a></li>
+                      <li class="active"><a href="Know_your_wines"><i class="bx bx-book-open"></i> <span>Know Your Wines</span></a></li>
+                      <li><a href="Taster"><i class="bx bxs-group"></i> Enthusiasts</a></li>
+                      <li><a href="Recommender"><i class="bx bxs-wine"></i> Recommender</a></li>
                     </ul>
                 </nav><!-- .nav-menu -->
 
@@ -90,7 +89,7 @@
                     </div>
                     <div class="col-xl-4 col-lg-4" style="padding-top: 1vw;">
                         <div class="card">
-                            <div class="card-header"><span id="cardheader">Popular Wines</span></div>
+                            <div class="card-header"><span id="barcardheader">Best Wines</span></div>
                             <div class="card-body columndiv" id="simpleColumndiv"></div>
                         </div>
                     </div>
@@ -98,7 +97,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12" style="padding-top: 1vw;">
                         <div class="card">
-                            <div class="card-header"><span id="cardheader">Word Cloud</span></div>
+                            <div class="card-header"><span id="wordcloudcardheader">Word Cloud</span></div>
                             <div class="card-body" id="varietywordclouddiv"></div>
                         </div>
                     </div>
